@@ -5,4 +5,5 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [com.esotericsoftware/kryo "4.0.0"]
+                 [com.twitter/chill-java "0.8.0"]
                  ])

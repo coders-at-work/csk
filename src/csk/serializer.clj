@@ -7,6 +7,12 @@
                     IteratorSeq ArraySeq PersistentVector$ChunkedSeq PersistentArrayMap$Seq PersistentHashMap$NodeSeq
                     StringSeq APersistentMap$KeySeq MapEntry PersistentHashSet
                     PersistentArrayMap PersistentHashMap PersistentStructMap)
+      (com.twitter.chill.java  RegexSerializer SqlDateSerializer SqlTimeSerializer
+                               TimestampSerializer URISerializer UUIDSerializer)
+      (java.util UUID)
+      (java.util.regex Pattern)
+      (java.net URI)
+      (java.sql Date Time Timestamp)
       ))
 
 ;; simple primitive serializer
@@ -73,4 +79,11 @@
                                       clojure-map-like-collection-serializers
                                       ))
 
-(def csk-default-serializers (merge clojure-primitive-serializers clojure-collection-serializers))
+(def java-serializers {Timestamp     (TimestampSerializer.)
+                       Date          (SqlDateSerializer.)
+                       Time          (SqlTimeSerializer.)
+                       URI           (URISerializer.)
+                       Pattern       (RegexSerializer.)
+                       UUID          (UUIDSerializer.)})
+
+(def csk-default-serializers (merge java-serializers clojure-primitive-serializers clojure-collection-serializers))
