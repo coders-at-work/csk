@@ -30,9 +30,9 @@
   [convert-fn]
   (proxy [Serializer] []
     (write [k o v]
-      (cs/write-collection-str k o v))
+      (cs/write-collection k o v))
     (read [k i c]
-      (cs/read-collection-str k i convert-fn))))
+      (cs/read-collection k i convert-fn))))
 
 (def list-serializer (create-coll-serializer #(apply list %)))
 (def vector-serializer (create-coll-serializer #(vec %)))

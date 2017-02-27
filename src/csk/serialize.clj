@@ -15,13 +15,13 @@
   [^Input input]
   (read-string (.readString input)))
 
-(defn write-collection-str
+(defn write-collection
   [^Kryo registry ^Output output coll]
   (.writeInt output (count coll) true)
   (doseq [x coll]
          (.writeClassAndObject registry output x)))
 
-(defn read-collection-str
+(defn read-collection
   [^Kryo registry ^Input input convert-fn]
   (let [len (.readInt input true)]
     (->> #(.readClassAndObject registry input)
