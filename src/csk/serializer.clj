@@ -45,45 +45,40 @@
 
 
 ;; serializers configuration
-(def clojure-primitive-serializers {Keyword reader-serializer
-                                    Symbol reader-serializer
-                                    BigInt reader-serializer
-                                    })
+(def clojure-primitive-serializers[Keyword reader-serializer
+                                   Symbol reader-serializer
+                                   BigInt reader-serializer])
 
-(def clojure-list-like-collection-serializers {PersistentList              list-serializer
-                                               PersistentList$EmptyList    list-serializer
-                                               Cons                        cons-serializer
-                                               LazySeq                     lazy-seq-serializer
-                                               IteratorSeq                 list-serializer
-                                               ArraySeq                    list-serializer
-                                               PersistentVector$ChunkedSeq vector-chunked-seq-serializer
-                                               StringSeq                   string-seq-serializer
-                                               LongRange                   list-serializer
-                                               PersistentArrayMap$Seq      list-serializer
-                                               PersistentHashMap$NodeSeq   list-serializer
-                                               APersistentMap$KeySeq       list-serializer
-                                               })
-(def clojure-vector-like-collection-serializers {PersistentVector vector-serializer
-                                                 MapEntry         map-entry-serializer
-                                                 })
-(def clojure-set-like-collection-serializers  {PersistentHashSet set-serializer})
-(def clojure-map-like-collection-serializers {PersistentArrayMap array-map-serializer
-                                              PersistentHashMap hash-map-serializer
-                                              PersistentStructMap hash-map-serializer
-                                              })
+(def clojure-list-like-collection-serializers[PersistentList              list-serializer
+                                              PersistentList$EmptyList    list-serializer
+                                              Cons                        cons-serializer
+                                              IteratorSeq                 list-serializer
+                                              ArraySeq                    list-serializer
+                                              PersistentVector$ChunkedSeq vector-chunked-seq-serializer
+                                              StringSeq                   string-seq-serializer
+                                              LongRange                   list-serializer
+                                              PersistentArrayMap$Seq      list-serializer
+                                              PersistentHashMap$NodeSeq   list-serializer
+                                              APersistentMap$KeySeq       list-serializer])
+(def clojure-vector-like-collection-serializers[PersistentVector vector-serializer
+                                                MapEntry         map-entry-serializer])
+(def clojure-set-like-collection-serializers  [PersistentHashSet set-serializer])
+(def clojure-map-like-collection-serializers[PersistentArrayMap array-map-serializer
+                                             PersistentHashMap hash-map-serializer
+                                             PersistentStructMap hash-map-serializer])
 
-(def clojure-collection-serializers (merge
+(def clojure-collection-serializers (concat
                                       clojure-list-like-collection-serializers
                                       clojure-vector-like-collection-serializers
                                       clojure-set-like-collection-serializers
                                       clojure-map-like-collection-serializers
                                       ))
 
-(def java-serializers {Timestamp     (TimestampSerializer.)
+(def java-serializers [Timestamp     (TimestampSerializer.)
                        Date          (SqlDateSerializer.)
                        Time          (SqlTimeSerializer.)
                        URI           (URISerializer.)
                        Pattern       (RegexSerializer.)
-                       UUID          (UUIDSerializer.)})
+                       UUID          (UUIDSerializer.)])
 
-(def csk-default-serializers (merge java-serializers clojure-primitive-serializers clojure-collection-serializers))
+(def csk-default-serializers (concat java-serializers clojure-primitive-serializers clojure-collection-serializers))

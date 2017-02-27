@@ -7,9 +7,9 @@
       ))
 
 (defn register-serializers
-  "Register a map of Class to Kryo Serializer with a Kryo registry."
+  "Register a seq of Class to Kryo Serializer with a Kryo registry."
   [^Kryo kryo serializers]
-  (doseq [[^Class klass ^Serializer serializer] serializers]
+  (doseq [[^Class klass ^Serializer serializer] (partition 2 serializers)]
          (.register kryo klass serializer))
   kryo)
 
