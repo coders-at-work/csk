@@ -5,7 +5,7 @@
     (clojure.lang Keyword Symbol BigInt
                   PersistentVector PersistentList PersistentList$EmptyList Cons LazySeq LongRange
                   IteratorSeq ArraySeq PersistentVector$ChunkedSeq PersistentArrayMap$Seq PersistentHashMap$NodeSeq
-                  StringSeq APersistentMap$KeySeq MapEntry PersistentHashSet
+                  StringSeq APersistentMap$KeySeq MapEntry PersistentHashSet PersistentTreeSet
                   PersistentArrayMap PersistentHashMap PersistentStructMap)
     (com.twitter.chill.java  RegexSerializer SqlDateSerializer SqlTimeSerializer
                             TimestampSerializer URISerializer UUIDSerializer)
@@ -39,9 +39,10 @@
 (def string-seq-serializer (create-coll-serializer #(-> (apply str %) seq)))
 (def vector-chunked-seq-serializer (create-coll-serializer #(-> % vec seq)))
 (def map-entry-serializer (create-coll-serializer (fn [[k v]] (MapEntry/create k v))))
-(def set-serializer (create-coll-serializer #(set %)))
+(def hash-set-serializer (create-coll-serializer #(set %)))
 (def array-map-serializer (create-coll-serializer #(->> (apply concat %) (apply array-map))))
 (def hash-map-serializer (create-coll-serializer #(->> (apply concat %) (apply hash-map))))
+(def tree-set-serializer (create-coll-serializer #(apply sorted-set %)))
 
 
 ;; serializers configuration
@@ -63,7 +64,8 @@
                                                APersistentMap$KeySeq       list-serializer])
 (def clojure-vector-like-collection-serializers [PersistentVector vector-serializer
                                                  MapEntry         map-entry-serializer])
-(def clojure-set-like-collection-serializers [PersistentHashSet set-serializer])
+(def clojure-set-like-collection-serializers [PersistentHashSet hash-set-serializer
+                                              PersistentTreeSet tree-set-serializer])
 (def clojure-map-like-collection-serializers [PersistentArrayMap array-map-serializer
                                               PersistentHashMap hash-map-serializer
                                               PersistentStructMap hash-map-serializer])
