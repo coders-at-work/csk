@@ -4,7 +4,7 @@ A Clojure library designed to ... well, that part is up to you.
 
 ## Usage
 
-![](https://clojars.org/coders-at-work/db-dump/latest-version.svg)
+![](https://clojars.org/coders-at-work/csk/latest-version.svg)
 
 ## License
 
