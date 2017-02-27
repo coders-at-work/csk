@@ -4,9 +4,9 @@
     (com.esotericsoftware.kryo Serializer)
     (clojure.lang Keyword Symbol BigInt
                   PersistentVector PersistentList PersistentList$EmptyList Cons LazySeq LongRange
-                  IteratorSeq ArraySeq PersistentVector$ChunkedSeq PersistentArrayMap$Seq PersistentHashMap$NodeSeq
-                  StringSeq APersistentMap$KeySeq MapEntry PersistentHashSet PersistentTreeSet
-                  PersistentArrayMap PersistentHashMap PersistentStructMap)
+                  IteratorSeq ArraySeq PersistentVector$ChunkedSeq PersistentArrayMap$Seq PersistentHashMap$NodeSeq PersistentTreeMap$Seq
+                  StringSeq APersistentMap$KeySeq MapEntry PersistentTreeMap$BlackVal PersistentHashSet PersistentTreeSet
+                  PersistentArrayMap PersistentHashMap PersistentStructMap PersistentTreeMap)
     (com.twitter.chill.java  RegexSerializer SqlDateSerializer SqlTimeSerializer
                             TimestampSerializer URISerializer UUIDSerializer)
     (java.util UUID)
@@ -42,6 +42,7 @@
 (def hash-set-serializer (create-coll-serializer #(set %)))
 (def array-map-serializer (create-coll-serializer #(->> (apply concat %) (apply array-map))))
 (def hash-map-serializer (create-coll-serializer #(->> (apply concat %) (apply hash-map))))
+(def tree-map-serializer (create-coll-serializer #(->> (apply concat %) (apply sorted-map))))
 (def tree-set-serializer (create-coll-serializer #(apply sorted-set %)))
 
 
@@ -61,14 +62,20 @@
                                                LongRange                   list-serializer
                                                PersistentArrayMap$Seq      list-serializer
                                                PersistentHashMap$NodeSeq   list-serializer
-                                               APersistentMap$KeySeq       list-serializer])
-(def clojure-vector-like-collection-serializers [PersistentVector vector-serializer
-                                                 MapEntry         map-entry-serializer])
-(def clojure-set-like-collection-serializers [PersistentHashSet hash-set-serializer
-                                              PersistentTreeSet tree-set-serializer])
-(def clojure-map-like-collection-serializers [PersistentArrayMap array-map-serializer
-                                              PersistentHashMap hash-map-serializer
-                                              PersistentStructMap hash-map-serializer])
+                                               APersistentMap$KeySeq       list-serializer
+                                               PersistentTreeMap$Seq       list-serializer
+                                               ])
+(def clojure-vector-like-collection-serializers [PersistentVector           vector-serializer
+                                                 MapEntry                   map-entry-serializer
+                                                 PersistentTreeMap$BlackVal map-entry-serializer
+                                                 ])
+(def clojure-set-like-collection-serializers [PersistentHashSet   hash-set-serializer
+                                              PersistentTreeSet   tree-set-serializer])
+(def clojure-map-like-collection-serializers [PersistentArrayMap  array-map-serializer
+                                              PersistentHashMap   hash-map-serializer
+                                              PersistentStructMap hash-map-serializer
+                                              PersistentTreeMap   tree-map-serializer
+                                              ])
 
 (def clojure-collection-serializers (concat
                                       clojure-list-like-collection-serializers
