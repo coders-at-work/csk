@@ -5,6 +5,8 @@
     (clojure.lang Keyword Symbol BigInt
                   PersistentVector PersistentList PersistentList$EmptyList Cons LazySeq LongRange
                   IteratorSeq ArraySeq PersistentVector$ChunkedSeq PersistentArrayMap$Seq PersistentHashMap$NodeSeq PersistentTreeMap$Seq
+                  ArraySeq$ArraySeq_boolean ArraySeq$ArraySeq_byte ArraySeq$ArraySeq_char ArraySeq$ArraySeq_double
+                  ArraySeq$ArraySeq_float ArraySeq$ArraySeq_int ArraySeq$ArraySeq_long ArraySeq$ArraySeq_short
                   StringSeq APersistentMap$KeySeq MapEntry PersistentTreeMap$BlackVal PersistentHashSet PersistentTreeSet
                   PersistentArrayMap PersistentHashMap PersistentStructMap PersistentTreeMap)
     (com.twitter.chill.java  RegexSerializer SqlDateSerializer SqlTimeSerializer
@@ -64,6 +66,14 @@
                                                PersistentHashMap$NodeSeq   list-serializer
                                                APersistentMap$KeySeq       list-serializer
                                                PersistentTreeMap$Seq       list-serializer
+                                               ArraySeq$ArraySeq_boolean   list-serializer
+                                               ArraySeq$ArraySeq_byte      list-serializer
+                                               ArraySeq$ArraySeq_char      list-serializer
+                                               ArraySeq$ArraySeq_double    list-serializer
+                                               ArraySeq$ArraySeq_float     list-serializer
+                                               ArraySeq$ArraySeq_int       list-serializer
+                                               ArraySeq$ArraySeq_long      list-serializer
+                                               ArraySeq$ArraySeq_short     list-serializer
                                                ])
 (def clojure-vector-like-collection-serializers [PersistentVector           vector-serializer
                                                  MapEntry                   map-entry-serializer
