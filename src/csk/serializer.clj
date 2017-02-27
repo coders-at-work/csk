@@ -35,7 +35,7 @@
 (def list-serializer (create-coll-serializer #(apply list %)))
 (def vector-serializer (create-coll-serializer #(vec %)))
 (def cons-serializer (create-coll-serializer (fn [[e & rest]] (cons e rest))))
-(def lazy-seq-serializer (create-coll-serializer #(lazy-seq %)))
+;should convert to a list first ;(def lazy-seq-serializer (create-coll-serializer #(lazy-seq %)))
 (def string-seq-serializer (create-coll-serializer #(-> (apply str %) seq)))
 (def vector-chunked-seq-serializer (create-coll-serializer #(-> % vec seq)))
 (def map-entry-serializer (create-coll-serializer (fn [[k v]] (MapEntry/create k v))))
@@ -52,7 +52,7 @@
 (def clojure-list-like-collection-serializers [PersistentList              list-serializer
                                                PersistentList$EmptyList    list-serializer
                                                Cons                        cons-serializer
-                                               LazySeq                     lazy-seq-serializer
+                                               LazySeq                     list-serializer
                                                IteratorSeq                 list-serializer
                                                ArraySeq                    list-serializer
                                                PersistentVector$ChunkedSeq vector-chunked-seq-serializer
