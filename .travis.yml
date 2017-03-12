@@ -1,0 +1,6 @@
+language: clojure
+script: "lein cloverage --codecov --runner :midje"
+after_success:
+- bash <(curl -s https://codecov.io/bash) -f target/coverage/codecov.json
+jdk:
+- oraclejdk8
