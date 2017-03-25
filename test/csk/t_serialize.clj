@@ -2,7 +2,9 @@
     (:require [midje.sweet :refer :all]
               [csk.serialize :refer :all]
               )
-    (:import (com.esotericsoftware.kryo.io Input Output))
+    (:import (com.esotericsoftware.kryo.io Input Output)
+             (com.esotericsoftware.kryo Kryo)
+             )
     )
 
 (facts "Can serialize and deserialize primitive objects with Output and Input"
@@ -75,3 +77,15 @@
                (read-obj-str i) => 'a
                )
        ))
+
+(facts "Can serialize clojure collection and deserialize it as a clojure seq by default"
+       (let [o (Output. 1000)
+             b (.getBuffer o)
+             i (Input. b)
+             k (Kryo.)
+             ]
+         (fact "can serialize and deserialize ISeq"
+               (write-collection k o '(1 2 3))
+               (read-collection k i identity) => '(1 2 3)
+               )
+        ))
