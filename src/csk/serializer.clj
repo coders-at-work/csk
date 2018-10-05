@@ -2,7 +2,7 @@
   (:require [csk.serialize :as cs])
   (:import
     (com.esotericsoftware.kryo Serializer)
-    (clojure.lang Keyword Symbol BigInt
+    (clojure.lang Keyword Symbol BigInt Ratio
                   PersistentVector PersistentList PersistentList$EmptyList Cons LazySeq LongRange
                   IteratorSeq ArraySeq PersistentVector$ChunkedSeq PersistentArrayMap$Seq PersistentHashMap$NodeSeq PersistentTreeMap$Seq
                   ArraySeq$ArraySeq_boolean ArraySeq$ArraySeq_byte ArraySeq$ArraySeq_char ArraySeq$ArraySeq_double
@@ -51,7 +51,8 @@
 ;; serializers configuration
 (def clojure-primitive-serializers [Keyword reader-serializer
                                     Symbol reader-serializer
-                                    BigInt reader-serializer])
+                                    BigInt reader-serializer
+                                    Ratio reader-serializer])
 
 (def clojure-list-like-collection-serializers [PersistentList              list-serializer
                                                PersistentList$EmptyList    list-serializer
